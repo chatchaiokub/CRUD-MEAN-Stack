@@ -24,13 +24,14 @@ angular.module('CRUDApp', [])
         $scope.showEdit = true
         $scope.index = index
         $scope.id = id
-        $scope.Old_NAME = response.data.name
-        $scope.Old_AGE = response.data.age
-        $scope.Old_COUNTRY = response.data.country
+        $scope.NAME = response.data.name
+        $scope.AGE = response.data.age
+        $scope.COUNTRY = response.data.country
       })
     }
-    $scope.updateData = function (NEW) {
-      $http.put('/api/' + $scope.id, NEW).then(function (response) {
+    $scope.updateData = function (NAME, AGE, COUNTRY) {
+      var NewData = {NAME, AGE, COUNTRY}
+      $http.put('/api/' + $scope.id, NewData).then(function (response) {
         console.log(response.data)
         $scope.Array[$scope.index].name = response.data.name
         $scope.Array[$scope.index].age = response.data.age

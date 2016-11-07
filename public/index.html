@@ -43,11 +43,11 @@
           </div>
         </div>
         <div class="row">
-          <form ng-submit="updateData(NEW)">
+          <form ng-submit="updateData(NAME,AGE,COUNTRY)">
             <div class="container" ng-show="showEdit">
-              <label>Name.</label><input type="text" ng-value="Old_NAME" ng-model="NEW.NAME">
-              <label>Age.</label><input type="text" ng-value="Old_AGE" ng-model="NEW.AGE">
-              <label>Country.</label><input type="text" ng-value="Old_COUNTRY" ng-model="NEW.COUNTRY">
+              <label>Name.</label><input type="text" ng-model="NAME">
+              <label>Age.</label><input type="text" ng-model="AGE">
+              <label>Country.</label><input type="text" ng-model="COUNTRY">
               <input type="submit" id="submit" value="Submit" />
             </div>
         </form>
