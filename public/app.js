@@ -4,6 +4,7 @@ angular.module('CRUDApp', [])
     $scope.Array = []
     $scope.showEdit = false
     $scope.index = ''
+    $scope.id = ''
     // ------------------------------ Function ---------------------------------
     var GetData = function () {
       $http.get('/api').then(function (response) {
@@ -12,26 +13,35 @@ angular.module('CRUDApp', [])
     }
     GetData()
     $scope.addData = function (data) {
-      $http.post('/api').then(function (response) {
+      $http.post('/api', data).then(function (response) {
         $scope.Array.push(response.data)
         $scope.data = ''
       })
     }
-    $scope.editData = function (item, index) {
-      $scope.showEdit = true
-      $scope.index = index
-      $scope.NAME = item.name
-      $scope.AGE = item.age
-      $scope.COUNTRY = item.country
+    $scope.editData = function (id, index) {
+      $http.get('/api/' + id).then(function (response) {
+        console.log(response.data)
+        $scope.showEdit = true
+        $scope.index = index
+        $scope.id = id
+        $scope.Old_NAME = response.data.name
+        $scope.Old_AGE = response.data.age
+        $scope.Old_COUNTRY = response.data.country
+      })
     }
-    $scope.updateData = function (NAME, AGE, COUNTRY) {
-      $scope.Array[$scope.index].name = $scope.NAME
-      $scope.Array[$scope.index].age = $scope.AGE
-      $scope.Array[$scope.index].country = $scope.COUNTRY
-      $scope.showEdit = false
+    $scope.updateData = function (NEW) {
+      $http.put('/api/' + $scope.id, NEW).then(function (response) {
+        console.log(response.data)
+        $scope.Array[$scope.index].name = response.data.name
+        $scope.Array[$scope.index].age = response.data.age
+        $scope.Array[$scope.index].country = response.data.country
+        $scope.showEdit = false
+      })
     }
     $scope.deleteData = function (id, index) {
-      alert('delete')
-      $scope.Array.splice(index, 1)
+      $http.delete('/api/' + id).then(function (response) {
+        alert('Deleted !')
+        $scope.Array.splice(index, 1)
+      })
     }
   })
