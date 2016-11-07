@@ -1,0 +1,33 @@
+var express = require('express')
+var bodyParser = require('body-parser')
+var mongoose = require('mongoose')
+var app = express()
+
+mongoose.connect('mongodb://localhost/MEAN')
+
+var Schema = mongoose.Schema
+var thingSchema = new Schema({}, { strict: false })
+var Account = mongoose.model('Accounts', thingSchema)
+
+app.get('/api', function (req, res) {
+  Account.find({}, function (err, done) {
+    if (err) console.log(err)
+    res.send(done)
+  })
+})
+
+app.post('/api', function (req, res) {
+  var Obj = new Account(req.body)
+  Obj.save(function (err) {
+    if (err) console.log(err)
+    else res.send(req.body)
+  })
+})
+
+app.use(express.static('public'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
