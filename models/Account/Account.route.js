@@ -5,7 +5,8 @@
   var Account = require('./Account.schema.js')
 
   router.get('/api', function (req, res) {
-    Account.find({}, function (err, done) {
+    Account.find({})
+    .exec(function (err, done) {
       if (err) console.log(err)
       res.send(done)
     })
@@ -20,7 +21,8 @@
   })
 
   router.get('/api/:id', function (req, res) {
-    Account.findOne({ _id: req.params.id }, function (err, done) {
+    Account.findOne({ _id: req.params.id })
+    .exec(function (err, done) {
       if (err) console.log(err)
       res.send(done)
     })
@@ -30,15 +32,16 @@
     Account.findOneAndUpdate(
       { _id: req.params.id },
       { $set: {name: req.body.NAME, age: req.body.AGE, country: req.body.COUNTRY} },
-      { new: true },
-      function (err, done) {
+      { new: true })
+      .exec(function (err, done) {
         if (err) console.log(err)
         res.send(done)
       })
   })
 
   router.delete('/api/:id', function (req, res) {
-    Account.findOneAndRemove({ _id: req.params.id }, function (err, done) {
+    Account.findOneAndRemove({ _id: req.params.id })
+    .exec(function (err, done) {
       if (err) console.log(err)
       res.send(done)
     })
