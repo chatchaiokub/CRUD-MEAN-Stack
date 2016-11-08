@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var app = express()
 
-mongoose.connect('mongodb://localhost/MEAN')
+mongoose.connect('mongodb://chatchat:chatchat@ds147377.mlab.com:47377/mean')
 
 var Schema = mongoose.Schema
 var thingSchema = new Schema({}, { strict: false })
